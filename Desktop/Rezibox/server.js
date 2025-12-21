@@ -35,6 +35,36 @@ const server = http.createServer((req, res) => {
         });
     }
 
+    // Servir archivos estáticos (imagenes, PDF, etc.)
+else if (
+    req.url.startsWith('/css/') ||
+    req.url.startsWith('/image/') ||
+    req.url.startsWith('/documentacion/')
+) {
+    const filePath = path.join(__dirname, req.url);
+    const ext = path.extname(filePath);
+
+    const mimeTypes = {
+        '.css': 'text/css',
+        '.jpg': 'image/jpeg',
+        '.jpeg': 'image/jpeg',
+        '.png': 'image/png',
+        '.pdf': 'application/pdf'
+    };
+
+    const contentType = mimeTypes[ext] || 'application/octet-stream';
+
+    fs.readFile(filePath, (err, content) => {
+        if (err) {
+            res.writeHead(404);
+            res.end('Archivo no encontrado');
+        } else {
+            res.writeHead(200, { 'Content-Type': contentType });
+            res.end(content);
+        }
+    });
+}
+
     // Ruta no encontrada
     else {
         res.writeHead(404, { 'Content-Type': 'text/plain' });

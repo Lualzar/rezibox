@@ -114,7 +114,7 @@ header::before {
 ======================= */
 
 .hero {
-    background-image: url("../css/image/rezibox\ image.jpeg");
+    background-image: url("/rezi/image/rezibox\ image.jpeg");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
