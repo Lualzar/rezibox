@@ -41,7 +41,8 @@ else if (
     req.url.startsWith('/image/') ||
     req.url.startsWith('/documentacion/')
 ) {
-    const filePath = path.join(__dirname, req.url);
+    const decodedUrl = decodeURIComponent(req.url);
+    const filePath = path.join(__dirname, decodedUrl);
     const ext = path.extname(filePath);
 
     const mimeTypes = {
