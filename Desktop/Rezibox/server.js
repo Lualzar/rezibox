@@ -42,7 +42,8 @@ else if (
     req.url.startsWith('/documentacion/')
 ) {
     const decodedUrl = decodeURIComponent(req.url);
-    const filePath = path.join(__dirname, decodedUrl);
+    const safePath = decodedUrl.replace(/^\/+/, '');
+    const filePath = path.join(__dirname, safePath);
     const ext = path.extname(filePath);
 
     const mimeTypes = {
